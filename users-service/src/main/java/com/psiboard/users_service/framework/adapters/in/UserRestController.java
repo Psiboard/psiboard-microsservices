@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
 import com.psiboard.users_service.application.dto.UserResponseDto;
 import com.psiboard.users_service.application.ports.in.UserServiceInputPort;
+import com.psiboard.users_service.framework.adapters.out.feign.PatientFeignClient;
+
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +22,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class UserRestController {
 
     private final UserServiceInputPort serviceInputPort;
+    private final PatientFeignClient patientFeignClient;
 
-    public UserRestController(UserServiceInputPort serviceInputPort) {
+    public UserRestController(UserServiceInputPort serviceInputPort, PatientFeignClient patientFeignClient) {
         this.serviceInputPort = serviceInputPort;
+        this.patientFeignClient = patientFeignClient;
     }
 
     @GetMapping()
@@ -33,6 +37,11 @@ public class UserRestController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDto> findById(@PathVariable String id) {
         return ResponseEntity.status(HttpStatus.OK).body(serviceInputPort.findById(id));
+    }
+
+    @GetMapping("/{userId}/patients")
+    public <T> List<T> getPatientsForUser(@PathVariable String userId) {
+        return patientFeignClient.getPatientsByUserId(userId);
     }
 
     @PutMapping("/{id}")
