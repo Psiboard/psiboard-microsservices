@@ -14,12 +14,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SchedulingRequestDto {
-
+public class SchedulingResponseDto {
+    private String id;
     private LocalDate date;
     private String hour;
     private SchedulingType type;
     private UUID user_id;
-    private UUID patient_id;
-
+    private String patient_id;
 }

@@ -1,4 +1,4 @@
-package com.psiboard.users_service.framework.adapters.out;
+package com.psiboard.users_service.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -26,6 +26,9 @@ import com.psiboard.users_service.application.dto.UserRequestDto;
 import com.psiboard.users_service.application.dto.UserResponseDto;
 import com.psiboard.users_service.application.exception.CustomGenericException;
 import com.psiboard.users_service.domain.User;
+import com.psiboard.users_service.framework.adapters.out.UserMapper;
+import com.psiboard.users_service.framework.adapters.out.UserPersistencePortImpl;
+import com.psiboard.users_service.framework.adapters.out.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class UserPersistencePortImplTest {

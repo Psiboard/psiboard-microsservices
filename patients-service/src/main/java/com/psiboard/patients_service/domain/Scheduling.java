@@ -30,8 +30,8 @@ import lombok.Setter;
 public class Scheduling {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false)
     private LocalDate date;
@@ -48,6 +48,6 @@ public class Scheduling {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id", referencedColumnName = "id")
+    @JoinColumn(name = "patient_id")
     private Patient patient;
 }

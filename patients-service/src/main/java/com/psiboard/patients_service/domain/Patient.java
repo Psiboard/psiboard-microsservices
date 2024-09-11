@@ -66,7 +66,7 @@ public class Patient {
     @Column(nullable = false)
     private UUID user_id;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Scheduling> schedulings = new ArrayList<>();
 
 }
