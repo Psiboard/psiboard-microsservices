@@ -64,7 +64,7 @@ public class Patient {
 
     // Referência ao id do usuário, criando a FK
     @Column(nullable = false)
-    private UUID user_id;
+    private String user_id;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Scheduling> schedulings = new ArrayList<>();

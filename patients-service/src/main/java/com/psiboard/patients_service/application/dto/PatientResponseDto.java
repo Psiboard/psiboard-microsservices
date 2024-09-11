@@ -21,4 +21,5 @@ public class PatientResponseDto {
     private String state;
     private String zip_code;
     private String additional_info;
+    private String user_id;
 }

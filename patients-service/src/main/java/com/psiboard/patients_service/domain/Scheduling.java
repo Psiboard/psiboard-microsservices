@@ -1,6 +1,5 @@
 package com.psiboard.patients_service.domain;
 
-import java.util.UUID;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
@@ -44,7 +43,7 @@ public class Scheduling {
     private SchedulingType type;
 
     @Column(nullable = false)
-    private UUID user_id;
+    private String user_id;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

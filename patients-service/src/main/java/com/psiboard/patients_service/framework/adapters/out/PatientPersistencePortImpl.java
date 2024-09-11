@@ -34,4 +34,12 @@ public class PatientPersistencePortImpl implements PatientPersistencePort {
                 .map(patientMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<PatientResponseDto> findByUserId(String id) {
+        return patientRepository.findByUserId(id).stream()
+                .map(patientMapper::toDto)
+                .collect(Collectors.toList());
+        
+    }
 }

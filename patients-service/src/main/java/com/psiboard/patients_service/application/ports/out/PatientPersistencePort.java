@@ -9,4 +9,5 @@ public interface PatientPersistencePort {
 
     PatientResponseDto create(PatientRequestDto patient);
     List<PatientResponseDto> findAll();
+    List<PatientResponseDto> findByUserId(String id);
 }
