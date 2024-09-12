@@ -4,9 +4,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
 import com.psiboard.users_service.application.dto.UserResponseDto;
+import com.psiboard.users_service.application.exception.CustomGenericException;
 import com.psiboard.users_service.application.ports.in.UserServiceInputPort;
 import com.psiboard.users_service.framework.adapters.out.feign.PatientFeignClient;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
+import java.util.Collections;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +44,7 @@ public class UserRestController {
     }
 
     @GetMapping("/{userId}/patients")
+    @CircuitBreaker(name = "users-service", fallbackMethod = "getPatientsFallback")
     public <T> List<T> getPatientsForUser(@PathVariable String userId) {
         return patientFeignClient.getPatientsByUserId(userId);
     }
@@ -54,6 +59,10 @@ public class UserRestController {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         serviceInputPort.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private CustomGenericException getPatientsFallback() {
+        return new CustomGenericException("O Serviço está temporariamente indisponível");
     }
 
 }
