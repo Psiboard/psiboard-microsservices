@@ -9,7 +9,7 @@ import com.psiboard.users_service.application.dto.PatientResponseDto;
 
 import java.util.List;
 
-@FeignClient(name = "patients-service")
+@FeignClient(name = "patients-service", fallback = PatientClientFallback.class)
 public interface PatientFeignClient {
 
     @GetMapping("/patients/{userId}")

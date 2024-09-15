@@ -10,6 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PatientResponseDto {
+    public PatientResponseDto(String string) {}
+
     private String id;
     private String name;
     private Integer age;
