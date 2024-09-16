@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.psiboard.patients_service.application.dto.PatientRequestDto;
 import com.psiboard.patients_service.application.dto.PatientResponseDto;
+import com.psiboard.patients_service.application.dto.UpdatePatientRequestDto;
 
 public interface PatientServiceInputPort {
     PatientResponseDto create(PatientRequestDto patient);
@@ -11,4 +12,8 @@ public interface PatientServiceInputPort {
     List<PatientResponseDto> findAll();
 
     List<PatientResponseDto> findByUserId(String id);
+
+    PatientResponseDto update(String id, UpdatePatientRequestDto patient);
+
+    void delete(String id);
 }

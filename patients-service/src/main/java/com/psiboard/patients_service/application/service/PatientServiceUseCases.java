@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.psiboard.patients_service.application.dto.PatientRequestDto;
 import com.psiboard.patients_service.application.dto.PatientResponseDto;
+import com.psiboard.patients_service.application.dto.UpdatePatientRequestDto;
 import com.psiboard.patients_service.application.ports.in.PatientServiceInputPort;
 import com.psiboard.patients_service.application.ports.out.PatientPersistencePort;
 
@@ -31,6 +32,16 @@ public class PatientServiceUseCases implements PatientServiceInputPort {
     @Override
     public List<PatientResponseDto> findByUserId(String id) {
         return patientPersistencePort.findByUserId(id);
+    }
+
+    @Override
+    public PatientResponseDto update(String id, UpdatePatientRequestDto patient) {
+        return patientPersistencePort.update(id, patient);
+    }
+
+    @Override
+    public void delete(String id) {
+        patientPersistencePort.delete(id);
     }
 
 }

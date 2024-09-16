@@ -46,12 +46,12 @@ public class UserPersistencePortImpl implements UserPersistencePort {
 
     @Override
     public UserResponseDto findById(String id) {
-        return userMapper.toDto(userRepository.findById(id).orElseThrow(() -> new CustomGenericException("Paciente com id " + id + " não foi encontrado")));
+        return userMapper.toDto(userRepository.findById(id).orElseThrow(() -> new CustomGenericException("Usuário com id " + id + " não foi encontrado")));
     }
 
     @Override
     public UserResponseDto update(String id, UpdateUserRequestDto user) {
-        User existingUser = userRepository.findById(id).orElseThrow(() -> new CustomGenericException("Paciente com id " + id + " não foi encontrado"));
+        User existingUser = userRepository.findById(id).orElseThrow(() -> new CustomGenericException("Usuário com id " + id + " não foi encontrado"));
         userMapper.updateUserFromDto(user, existingUser);
         return userMapper.toDto(userRepository.save(existingUser));
     }

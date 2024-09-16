@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import com.psiboard.patients_service.application.dto.PatientRequestDto;
 import com.psiboard.patients_service.application.dto.PatientResponseDto;
+import com.psiboard.patients_service.application.dto.UpdatePatientRequestDto;
 import com.psiboard.patients_service.application.ports.out.PatientPersistencePort;
 import com.psiboard.patients_service.domain.Patient;
+import com.psiboard.patients_service.application.exception.CustomGenericException;
 
 @Repository
 public class PatientPersistencePortImpl implements PatientPersistencePort {
@@ -41,5 +43,17 @@ public class PatientPersistencePortImpl implements PatientPersistencePort {
                 .map(patientMapper::toDto)
                 .collect(Collectors.toList());
         
+    }
+
+    @Override
+    public PatientResponseDto update(String id, UpdatePatientRequestDto patient) {
+        Patient existingPatient = patientRepository.findById(id).orElseThrow(() -> new CustomGenericException("Paciente com id " + id + " não foi encontrado"));
+        patientMapper.updateUserFromDto(patient, existingPatient);
+        return patientMapper.toDto(patientRepository.save(existingPatient));
+    }
+
+    @Override
+    public void delete(String id) {
+        patientRepository.deleteById(id);
     }
 }
