@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.psiboard.users_service.application.dto.PatientResponseDto;
 import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
 import com.psiboard.users_service.application.dto.UserResponseDto;
-import com.psiboard.users_service.application.exception.CustomGenericException;
 import com.psiboard.users_service.application.exception.PatientServiceErrorResponse;
 import com.psiboard.users_service.application.ports.in.UserServiceInputPort;
 import com.psiboard.users_service.framework.adapters.out.feign.PatientFeignClient;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("users")
@@ -50,11 +48,6 @@ public class UserRestController {
     @CircuitBreaker(name = "users-service", fallbackMethod = "getPatientsFallback")
     public List<PatientResponseDto> getPatientsForUser(@PathVariable String userId) {
         return patientFeignClient.getPatientsByUserId(userId);
-    }
-
-    @PostMapping("/patient")
-    public PatientResponseDto createPatient(@RequestBody PatientResponseDto patient) {
-        return patientFeignClient.createPatient(patient);
     }
 
     @PutMapping("/{id}")
