@@ -2,6 +2,8 @@ package com.psiboard.users_service.application.ports.in;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
 import com.psiboard.users_service.application.dto.UserRequestDto;
 import com.psiboard.users_service.application.dto.UserResponseDto;
@@ -16,6 +18,8 @@ public interface UserServiceInputPort {
     List<UserResponseDto> findAll();
 
     UserResponseDto findById(String id);
+
+    UserResponseDto findByEmail(String email);
 
     UserResponseDto update(String id, UpdateUserRequestDto user);
 

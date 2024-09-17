@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.psiboard.users_service.application.dto.PatientResponseDto;
 import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
 import com.psiboard.users_service.application.dto.UserResponseDto;
-import com.psiboard.users_service.application.exception.CustomGenericException;
 import com.psiboard.users_service.application.exception.PatientServiceErrorResponse;
 import com.psiboard.users_service.application.ports.in.UserServiceInputPort;
 import com.psiboard.users_service.framework.adapters.out.feign.PatientFeignClient;
@@ -16,6 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +52,11 @@ public class UserRestController {
         return patientFeignClient.getPatientsByUserId(userId);
     }
 
+    @GetMapping("/user/{email}")
+    public UserResponseDto findUserByEmail(@PathVariable String email) {
+        return serviceInputPort.findByEmail(email);
+    }
+
     @PostMapping("/patient")
     public PatientResponseDto createPatient(@RequestBody PatientResponseDto patient) {
         return patientFeignClient.createPatient(patient);
@@ -73,9 +78,8 @@ public class UserRestController {
         // Log de fallback
         System.out.println("Erro no Circuit Breaker: " + throwable.getMessage());
         return new PatientServiceErrorResponse(
-            "O serviço de pacientes está temporariamente indisponível. Por favor, tente novamente mais tarde.",
-            Collections.emptyList()
-        );
+                "O serviço de pacientes está temporariamente indisponível. Por favor, tente novamente mais tarde.",
+                Collections.emptyList());
     }
 
 }

@@ -26,7 +26,6 @@ public class UserRestControllerIntegrationTest {
         userResponseDto.setId("123456789");
         userResponseDto.setName("John Doe");
         userResponseDto.setEmail("john.doe@example.com");
-        userResponseDto.setPassword("password123");
         userResponseDto.setContact("+55 11 99999-9999");
         UserResponseDto response = testClient
         .post()

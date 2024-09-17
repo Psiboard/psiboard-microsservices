@@ -2,6 +2,7 @@ package com.psiboard.users_service.application.service;
 
 import java.util.List;
 
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
@@ -48,6 +49,11 @@ public class UserServiceUseCases implements UserServiceInputPort {
     @Override
     public void delete(String id) {
         userPersistencePort.delete(id);
+    }
+
+    @Override
+    public UserResponseDto findByEmail(String email) {
+        return userPersistencePort.findByEmail(email);
     }
 
 }

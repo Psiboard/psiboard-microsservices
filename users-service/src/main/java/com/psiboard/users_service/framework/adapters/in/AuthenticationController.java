@@ -54,9 +54,9 @@ public class AuthenticationController {
         UserRequestDto newUser = new UserRequestDto(user.getName(), user.getEmail(), encryptedPassword,
                 user.getContact(), user.getRole());
 
-        serviceInputPort.create(newUser);
+        UserResponseDto savedUser = serviceInputPort.create(newUser);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(savedUser);
 
     }
 }
