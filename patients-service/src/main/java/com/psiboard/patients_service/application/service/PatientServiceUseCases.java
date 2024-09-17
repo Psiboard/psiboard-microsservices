@@ -44,4 +44,9 @@ public class PatientServiceUseCases implements PatientServiceInputPort {
         patientPersistencePort.delete(id);
     }
 
+    @Override
+    public List<PatientResponseDto> findPatientByName(String name) {
+        return patientPersistencePort.findPatientByName(name);
+    }
+
 }

@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
+import com.psiboard.patients_service.framework.helpers.Utils;
 
 import com.psiboard.patients_service.application.dto.PatientRequestDto;
 import com.psiboard.patients_service.application.dto.PatientResponseDto;
@@ -29,7 +30,8 @@ public class PatientPersistencePortImpl implements PatientPersistencePort {
     public PatientResponseDto create(PatientRequestDto patient) {
         Optional<Patient> existingPatient = patientRepository.findByEmail(patient.getEmail());
 
-        if(existingPatient.isPresent()) throw new BusinessException("Este paciente já está cadastrado no sistema!");
+        if (existingPatient.isPresent())
+            throw new BusinessException("Este paciente já está cadastrado no sistema!");
         Patient patientDomain = patientMapper.toEntity(patient);
         Patient savedPatient = patientRepository.save(patientDomain);
         return patientMapper.toDto(savedPatient);
@@ -47,12 +49,13 @@ public class PatientPersistencePortImpl implements PatientPersistencePort {
         return patientRepository.findByUserId(id).stream()
                 .map(patientMapper::toDto)
                 .collect(Collectors.toList());
-        
+
     }
 
     @Override
     public PatientResponseDto update(String id, UpdatePatientRequestDto patient) {
-        Patient existingPatient = patientRepository.findById(id).orElseThrow(() -> new CustomGenericException("Paciente com id " + id + " não foi encontrado"));
+        Patient existingPatient = patientRepository.findById(id)
+                .orElseThrow(() -> new CustomGenericException("Paciente com id " + id + " não foi encontrado"));
         patientMapper.updateUserFromDto(patient, existingPatient);
         return patientMapper.toDto(patientRepository.save(existingPatient));
     }
@@ -60,5 +63,12 @@ public class PatientPersistencePortImpl implements PatientPersistencePort {
     @Override
     public void delete(String id) {
         patientRepository.deleteById(id);
+    }
+
+    @Override
+    public List<PatientResponseDto> findPatientByName(String name) {
+        return patientRepository.findPatientByName(name).stream()
+                .map(Utils::convertToUserResponseDto)
+                .collect(Collectors.toList());
     }
 }

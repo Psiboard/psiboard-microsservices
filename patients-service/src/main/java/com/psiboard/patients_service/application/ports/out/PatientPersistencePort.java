@@ -14,6 +14,8 @@ public interface PatientPersistencePort {
 
     List<PatientResponseDto> findByUserId(String id);
 
+    List<PatientResponseDto> findPatientByName(String name);
+
     PatientResponseDto update(String id, UpdatePatientRequestDto patient);
 
     void delete(String id);
