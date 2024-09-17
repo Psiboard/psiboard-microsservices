@@ -4,7 +4,7 @@ import com.psiboard.patients_service.application.dto.PatientResponseDto;
 import com.psiboard.patients_service.domain.Patient;
 
 public class Utils {
-    public static PatientResponseDto convertToUserResponseDto(Patient patientDetails) {
+    public static PatientResponseDto convertToPatientResponseDto(Patient patientDetails) {
         if (patientDetails instanceof Patient) {
             Patient patient = (Patient) patientDetails;
             return new PatientResponseDto(patient.getId(), patient.getName(), patient.getAge(), patient.getEmail(),

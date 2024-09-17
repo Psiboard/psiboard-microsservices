@@ -68,7 +68,7 @@ public class PatientPersistencePortImpl implements PatientPersistencePort {
     @Override
     public List<PatientResponseDto> findPatientByName(String name) {
         return patientRepository.findPatientByName(name).stream()
-                .map(Utils::convertToUserResponseDto)
+                .map(Utils::convertToPatientResponseDto)
                 .collect(Collectors.toList());
     }
 }
