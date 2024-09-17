@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 import com.psiboard.users_service.framework.helpers.Utils;
 
-import ch.qos.logback.classic.pattern.Util;
-
 import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
 import com.psiboard.users_service.application.dto.UserRequestDto;
 import com.psiboard.users_service.application.dto.UserResponseDto;
