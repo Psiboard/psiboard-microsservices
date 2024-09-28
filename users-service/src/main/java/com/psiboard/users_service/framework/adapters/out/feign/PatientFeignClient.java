@@ -1,6 +1,7 @@
 package com.psiboard.users_service.framework.adapters.out.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -12,6 +13,6 @@ import java.util.List;
 public interface PatientFeignClient {
 
     @GetMapping("/patients/{userId}")
-    List<PatientResponseDto> getPatientsByUserId(@PathVariable("userId") String userId);
+    public ResponseEntity<List<PatientResponseDto>> getPatientsByUserId(@PathVariable("userId") String userId);
 
 }

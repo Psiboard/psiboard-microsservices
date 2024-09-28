@@ -13,6 +13,9 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,7 +49,7 @@ public class UserRestController {
 
     @GetMapping("/{userId}/patients")
     @CircuitBreaker(name = "users-service", fallbackMethod = "getPatientsFallback")
-    public List<PatientResponseDto> getPatientsForUser(@PathVariable String userId) {
+    public ResponseEntity<List<PatientResponseDto>> getPatientsForUser(@PathVariable String userId) {
         return patientFeignClient.getPatientsByUserId(userId);
     }
 
@@ -67,12 +70,12 @@ public class UserRestController {
         return ResponseEntity.noContent().build();
     }
 
-    public PatientServiceErrorResponse getPatientsFallback(String userId, Throwable throwable) {
-        // Log de fallback
-        System.out.println("Erro no Circuit Breaker: " + throwable.getMessage());
-        return new PatientServiceErrorResponse(
-                "O serviço de pacientes está temporariamente indisponível. Por favor, tente novamente mais tarde.",
-                Collections.emptyList());
+    public ResponseEntity<Map<String, Object>> getPatientsFallback(String userId, Throwable throwable) {
+        Map<String, Object> responseBody = new HashMap<>();
+        responseBody.put("message", "O serviço de pacientes está temporariamente indisponível");
+        responseBody.put("data", Collections.emptyList());
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(responseBody);
     }
 
 }
