@@ -22,15 +22,6 @@ public class PatientClientFallback implements FallbackFactory<PatientFeignClient
                 // Retorna lista vazia como fallback
                 return Collections.emptyList();
             }
-
-            @Override
-            public PatientResponseDto createPatient(PatientResponseDto patient) {
-                // Captura a causa do erro
-                System.out.println("Fallback ativado devido a: " + cause.getMessage());
-
-                // Retorna uma resposta de fallback
-                return new PatientResponseDto("Serviço de Pacientes indisponível");
-            }
         };
     }
 

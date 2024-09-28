@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
 @RequestMapping("users")
@@ -54,11 +53,6 @@ public class UserRestController {
     @GetMapping("/user/{email}")
     public UserResponseDto findUserByEmail(@PathVariable String email) {
         return serviceInputPort.findByEmail(email);
-    }
-
-    @PostMapping("/patient")
-    public PatientResponseDto createPatient(@RequestBody PatientResponseDto patient) {
-        return patientFeignClient.createPatient(patient);
     }
 
     @PutMapping("/{id}")
