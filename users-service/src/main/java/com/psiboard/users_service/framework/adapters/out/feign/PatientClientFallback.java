@@ -12,7 +12,7 @@ import com.psiboard.users_service.application.dto.PatientResponseDto;
 public class PatientClientFallback implements PatientFeignClient {
 
     @Override
-    public ResponseEntity<List<PatientResponseDto>> getPatientsByUserId(String userId) {
+    public ResponseEntity<List<PatientResponseDto>> findPatientsByUserId(String userId) {
         System.out.println("Caiu no PatientClientFallback...");
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
                          .body(Collections.emptyList());

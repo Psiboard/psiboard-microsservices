@@ -49,8 +49,8 @@ public class UserRestController {
 
     @GetMapping("/{userId}/patients")
     @CircuitBreaker(name = "users-service", fallbackMethod = "getPatientsFallback")
-    public ResponseEntity<List<PatientResponseDto>> getPatientsForUser(@PathVariable String userId) {
-        return patientFeignClient.getPatientsByUserId(userId);
+    public ResponseEntity<List<PatientResponseDto>> findPatientsForUser(@PathVariable String userId) {
+        return patientFeignClient.findPatientsByUserId(userId);
     }
 
     @GetMapping("/user/{email}")

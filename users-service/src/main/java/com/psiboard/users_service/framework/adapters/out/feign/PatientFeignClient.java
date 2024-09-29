@@ -13,6 +13,6 @@ import java.util.List;
 public interface PatientFeignClient {
 
     @GetMapping("/patients/{userId}")
-    public ResponseEntity<List<PatientResponseDto>> getPatientsByUserId(@PathVariable("userId") String userId);
+    public ResponseEntity<List<PatientResponseDto>> findPatientsByUserId(@PathVariable("userId") String userId);
 
 }

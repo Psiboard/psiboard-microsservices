@@ -35,7 +35,7 @@ public class PatientRestController {
         return patientServiceInputPort.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{userId}")
     public List<PatientResponseDto> findByUserId(@PathVariable String id) {
         return patientServiceInputPort.findByUserId(id);
     }
