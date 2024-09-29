@@ -1,14 +1,18 @@
 package com.psiboard.patients_service.framework.adapters.out;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
 import com.psiboard.patients_service.application.dto.SchedulingRequestDto;
 import com.psiboard.patients_service.application.dto.SchedulingResponseDto;
+import com.psiboard.patients_service.application.exception.BusinessException;
 import com.psiboard.patients_service.application.ports.out.SchedulingPersistencePort;
 import com.psiboard.patients_service.domain.Scheduling;
+import com.psiboard.patients_service.framework.helpers.Utils;
 
 @Repository
 public class SchedulingPersistencePortImpl implements SchedulingPersistencePort {
@@ -22,8 +26,16 @@ public class SchedulingPersistencePortImpl implements SchedulingPersistencePort 
     }
 
     @Override
-    public SchedulingResponseDto create(SchedulingRequestDto patient) {
-        Scheduling schedulingDomain = schedulingMapper.toEntity(patient);
+    public SchedulingResponseDto create(SchedulingRequestDto scheduling) {
+        // Validações de horario
+        Utils.validateHourFormat(scheduling.getHour());
+        Utils.validateHourRange(scheduling.getHour());
+
+        // Regras de negócio de agendamentos
+        checkPatientHasNoSchedulingOnSameDate(scheduling.getPatient_id(), scheduling.getDate());
+        checkNoSchedulingOnSameDateTime(scheduling.getDate(), scheduling.getHour());
+
+        Scheduling schedulingDomain = schedulingMapper.toEntity(scheduling);
         Scheduling savedScheduling = schedulingRepository.save(schedulingDomain);
         return schedulingMapper.toDto(savedScheduling);
     }
@@ -33,6 +45,20 @@ public class SchedulingPersistencePortImpl implements SchedulingPersistencePort 
         return schedulingRepository.findAll().stream()
                 .map(schedulingMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    private void checkPatientHasNoSchedulingOnSameDate(String patientId, LocalDate date) {
+        boolean exists = schedulingRepository.existsByPatientIdAndDate(patientId, date);
+        if (exists) {
+            throw new BusinessException("O paciente já possui um agendamento nesta data.");
+        }
+    }
+
+    private void checkNoSchedulingOnSameDateTime(LocalDate date, String hour) {
+        boolean exists = schedulingRepository.existsByDateAndHour(date, hour);
+        if (exists) {
+            throw new BusinessException("Já existe um agendamento para essa data e hora.");
+        }
     }
 
 }
