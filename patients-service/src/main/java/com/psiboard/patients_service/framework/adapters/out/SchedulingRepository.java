@@ -1,7 +1,6 @@
 package com.psiboard.patients_service.framework.adapters.out;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

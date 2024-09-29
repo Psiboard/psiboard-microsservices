@@ -12,7 +12,6 @@ import com.psiboard.patients_service.application.exception.BusinessException;
 import com.psiboard.patients_service.application.exception.CustomGenericException;
 import com.psiboard.patients_service.application.ports.out.SchedulingPersistencePort;
 import com.psiboard.patients_service.domain.Scheduling;
-import com.psiboard.patients_service.domain.SchedulingType;
 import com.psiboard.patients_service.framework.helpers.Utils;
 
 @Repository

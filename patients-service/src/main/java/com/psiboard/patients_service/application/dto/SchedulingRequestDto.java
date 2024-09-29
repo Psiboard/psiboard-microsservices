@@ -1,7 +1,6 @@
 package com.psiboard.patients_service.application.dto;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import com.psiboard.patients_service.domain.SchedulingType;
 
