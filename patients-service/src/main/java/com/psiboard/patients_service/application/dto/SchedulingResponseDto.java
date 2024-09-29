@@ -1,7 +1,6 @@
 package com.psiboard.patients_service.application.dto;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import com.psiboard.patients_service.domain.SchedulingType;
 
@@ -19,6 +18,6 @@ public class SchedulingResponseDto {
     private LocalDate date;
     private String hour;
     private SchedulingType type;
-    private UUID user_id;
-    private String patient_id;
+    private String user_id;
+    private String patient_id;    
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
+import com.psiboard.patients_service.framework.helpers.Utils;
 
 import com.psiboard.patients_service.application.dto.SchedulingRequestDto;
 import com.psiboard.patients_service.application.dto.SchedulingResponseDto;
@@ -12,7 +13,6 @@ import com.psiboard.patients_service.application.exception.BusinessException;
 import com.psiboard.patients_service.application.exception.CustomGenericException;
 import com.psiboard.patients_service.application.ports.out.SchedulingPersistencePort;
 import com.psiboard.patients_service.domain.Scheduling;
-import com.psiboard.patients_service.framework.helpers.Utils;
 
 @Repository
 public class SchedulingPersistencePortImpl implements SchedulingPersistencePort {
@@ -80,6 +80,28 @@ public class SchedulingPersistencePortImpl implements SchedulingPersistencePort 
         if (exists) {
             throw new BusinessException("Já existe um agendamento para essa data e hora.");
         }
+    }
+
+    @Override
+    public List<SchedulingResponseDto> findSchedules(LocalDate date) {
+        return schedulingRepository.findByDate(date).stream()
+                .map(Utils::convertToSchedulingResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> findAvailableHours(LocalDate date) {
+        List<Scheduling> schedulings = schedulingRepository.findByDate(date);
+
+        List<String> allHours = Utils.generateAllHours();
+
+        List<String> availableHours = allHours.stream()
+                .filter(hour -> !schedulings.stream()
+                        .anyMatch(scheduling -> scheduling.getHour().equals(hour)))
+                .collect(Collectors.toList());
+
+        return availableHours;
+
     }
 
 }

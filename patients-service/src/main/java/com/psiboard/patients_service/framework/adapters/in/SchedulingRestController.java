@@ -1,14 +1,15 @@
 package com.psiboard.patients_service.framework.adapters.in;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 
 import com.psiboard.patients_service.application.dto.SchedulingRequestDto;
 import com.psiboard.patients_service.application.dto.SchedulingResponseDto;
 import com.psiboard.patients_service.application.ports.in.SchedulingServiceInputPort;
 
 import java.util.List;
+import java.time.LocalDate;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,16 @@ public class SchedulingRestController {
     @GetMapping()
     public List<SchedulingResponseDto> findAll() {
         return schedulingServiceInputPort.findAll();
+    }
+
+    @GetMapping("date")
+    public List<SchedulingResponseDto> findSchedules(@RequestParam LocalDate date) {
+        return schedulingServiceInputPort.findSchedules(date);
+    }
+
+    @GetMapping("/available")
+    public List<String> findAvailableHours(@RequestParam LocalDate date) {
+        return schedulingServiceInputPort.findAvailableHours(date);
     }
 
     @PostMapping()

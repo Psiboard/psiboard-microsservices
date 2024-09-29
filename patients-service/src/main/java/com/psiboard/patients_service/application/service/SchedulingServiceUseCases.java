@@ -1,5 +1,6 @@
 package com.psiboard.patients_service.application.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -36,6 +37,16 @@ public class SchedulingServiceUseCases implements SchedulingServiceInputPort {
     @Override
     public void delete(String id) {
         schedulingPersistencePort.delete(id);
+    }
+
+    @Override
+    public List<SchedulingResponseDto> findSchedules(LocalDate date) {
+        return schedulingPersistencePort.findSchedules(date);
+    }
+
+    @Override
+    public List<String> findAvailableHours(LocalDate date) {
+        return schedulingPersistencePort.findAvailableHours(date);
     }
 
     

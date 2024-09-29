@@ -2,10 +2,14 @@ package com.psiboard.patients_service.framework.helpers;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.psiboard.patients_service.application.dto.PatientResponseDto;
+import com.psiboard.patients_service.application.dto.SchedulingResponseDto;
 import com.psiboard.patients_service.application.exception.BusinessException;
 import com.psiboard.patients_service.domain.Patient;
+import com.psiboard.patients_service.domain.Scheduling;
 import com.psiboard.patients_service.domain.SchedulingType;
 
 public class Utils {
@@ -15,6 +19,15 @@ public class Utils {
             return new PatientResponseDto(patient.getId(), patient.getName(), patient.getAge(), patient.getEmail(),
                     patient.getPhone(), patient.getStreet(), patient.getDistrict(), patient.getCity(),
                     patient.getState(), patient.getZip_code(), patient.getAdditional_info(), patient.getUser_id());
+        }
+        return null; // Tratar exceção adequadamente
+    }
+
+    public static SchedulingResponseDto convertToSchedulingResponseDto(Scheduling schedulingDetails) {
+        if (schedulingDetails instanceof Scheduling) {
+            Scheduling scheduling = (Scheduling) schedulingDetails;
+            return new SchedulingResponseDto(scheduling.getId(), scheduling.getDate(), scheduling.getHour(),
+                    scheduling.getType(), scheduling.getUser_id(), scheduling.getPatient().getId());
         }
         return null; // Tratar exceção adequadamente
     }
@@ -61,6 +74,15 @@ public class Utils {
         if (type != SchedulingType.REMARCACAO) {
             throw new BusinessException("Tipo de agendamento inválido para atualização");
         }
+    }
+
+    public static List<String> generateAllHours() {
+        List<String> hours = new ArrayList<>();
+        for (int i = 8; i <= 21; i++) {
+            String hour = String.format("%02d:00", i);
+            hours.add(hour);
+        }
+        return hours;
     }
 
 }
