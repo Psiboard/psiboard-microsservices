@@ -1,9 +1,8 @@
 package com.psiboard.patients_service.framework.adapters.out;
 
-import java.util.UUID;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 import com.psiboard.patients_service.application.dto.SchedulingRequestDto;
@@ -21,6 +20,10 @@ public interface SchedulingMapper {
 
     @Mapping(source = "patient.id", target = "patient_id")
     SchedulingResponseDto toDto(Scheduling scheduling);
+
+    @Mapping(target = "id", ignore = true) // Ignora o ID, pois não deve ser alterado em uma atualização
+    @Mapping(target = "patient", source = "patient_id", qualifiedByName = "uuidToPatient") // Converte o patient_id para o objeto Patient
+    void updateSchedulingFromDto(SchedulingRequestDto dto, @MappingTarget Scheduling scheduling);
 
     @Named("uuidToPatient")
     default Patient uuidToPatient(String patientId) {

@@ -9,4 +9,8 @@ public interface SchedulingServiceInputPort {
     SchedulingResponseDto create(SchedulingRequestDto patient);
 
     List<SchedulingResponseDto> findAll();
+
+    SchedulingResponseDto update(String id, SchedulingRequestDto scheduling);
+
+    void delete(String id);
 }

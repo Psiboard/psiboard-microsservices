@@ -28,4 +28,15 @@ public class SchedulingServiceUseCases implements SchedulingServiceInputPort {
         return schedulingPersistencePort.findAll();
     }
 
+    @Override
+    public SchedulingResponseDto update(String id, SchedulingRequestDto patient) {
+        return schedulingPersistencePort.update(id, patient);
+    }
+
+    @Override
+    public void delete(String id) {
+        schedulingPersistencePort.delete(id);
+    }
+
+    
 }

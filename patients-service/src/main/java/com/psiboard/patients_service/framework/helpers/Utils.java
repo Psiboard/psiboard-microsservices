@@ -1,13 +1,12 @@
 package com.psiboard.patients_service.framework.helpers;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
-import java.util.UUID;
 
 import com.psiboard.patients_service.application.dto.PatientResponseDto;
 import com.psiboard.patients_service.application.exception.BusinessException;
 import com.psiboard.patients_service.domain.Patient;
+import com.psiboard.patients_service.domain.SchedulingType;
 
 public class Utils {
     public static PatientResponseDto convertToPatientResponseDto(Patient patientDetails) {
@@ -39,4 +38,29 @@ public class Utils {
             throw new BusinessException("O formato da hora deve ser HH:mm");
         }
     }
+
+    public static void validateEmailFormat(String email) {
+        if (!email.matches("^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$")) {
+            throw new BusinessException("O formato do e-mail é inválido");
+        }
+    }
+
+    public static void validatePhoneNumberFormat(String phone) {
+        if (!phone.matches("^\\+[0-9]{1,3}\\s[0-9]{1,15}$")) {
+            throw new BusinessException("O formato do número de telefone é inválido");
+        }
+    }
+
+    public static void validateZipCodeFormat(String zipCode) {
+        if (!zipCode.matches("^\\d{5}-\\d{3}$")) {
+            throw new BusinessException("O formato do CEP é inválido");
+        }
+    }
+
+    public static void validateTypeUpdateScheduling(SchedulingType type) {
+        if (type != SchedulingType.REMARCACAO) {
+            throw new BusinessException("Tipo de agendamento inválido para atualização");
+        }
+    }
+
 }
