@@ -95,12 +95,10 @@ public class SchedulingPersistencePortImpl implements SchedulingPersistencePort 
 
         List<String> allHours = Utils.generateAllHours();
 
-        List<String> availableHours = allHours.stream()
+        return allHours.stream()
                 .filter(hour -> !schedulings.stream()
                         .anyMatch(scheduling -> scheduling.getHour().equals(hour)))
                 .collect(Collectors.toList());
-
-        return availableHours;
 
     }
 
