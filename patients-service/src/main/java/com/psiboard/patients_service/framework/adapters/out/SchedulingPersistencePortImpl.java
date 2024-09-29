@@ -2,7 +2,6 @@ package com.psiboard.patients_service.framework.adapters.out;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
@@ -10,8 +9,10 @@ import org.springframework.stereotype.Repository;
 import com.psiboard.patients_service.application.dto.SchedulingRequestDto;
 import com.psiboard.patients_service.application.dto.SchedulingResponseDto;
 import com.psiboard.patients_service.application.exception.BusinessException;
+import com.psiboard.patients_service.application.exception.CustomGenericException;
 import com.psiboard.patients_service.application.ports.out.SchedulingPersistencePort;
 import com.psiboard.patients_service.domain.Scheduling;
+import com.psiboard.patients_service.domain.SchedulingType;
 import com.psiboard.patients_service.framework.helpers.Utils;
 
 @Repository
@@ -45,6 +46,27 @@ public class SchedulingPersistencePortImpl implements SchedulingPersistencePort 
         return schedulingRepository.findAll().stream()
                 .map(schedulingMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public SchedulingResponseDto update(String id, SchedulingRequestDto scheduling) {
+
+        // Validações
+        Utils.validateHourFormat(scheduling.getHour());
+        Utils.validateHourRange(scheduling.getHour());
+        Utils.validateTypeUpdateScheduling(scheduling.getType());
+        checkNoSchedulingOnSameDateTime(scheduling.getDate(), scheduling.getHour());
+
+        Scheduling existingScheduling = schedulingRepository.findById(id)
+                .orElseThrow(() -> new CustomGenericException("Agendamento com id " + id + " não foi encontrado"));
+        schedulingMapper.updateSchedulingFromDto(scheduling, existingScheduling);
+        return schedulingMapper.toDto(schedulingRepository.save(existingScheduling));
+    }
+
+    @Override
+    public void delete(String id) {
+        schedulingRepository.deleteById(id);
+
     }
 
     private void checkPatientHasNoSchedulingOnSameDate(String patientId, LocalDate date) {
