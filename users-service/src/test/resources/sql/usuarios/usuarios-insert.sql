@@ -1,0 +1,3 @@
+insert into USERS (id, name, email, password, contact, role) values (100, 'Ana', 'ana@email.com', '123456', '987654321', 'PROFESSIONAL');
+insert into USERS (id, name, email, password, contact, role) values (101, 'Jose', 'jose@email.com', '123456', '987654321', 'ADMIN');
+insert into USERS (id, name, email, password, contact, role) values (102, 'Maria', 'maria@email.com', '123456', '987654321', 'PROFESSIONAL');

@@ -1,19 +1,22 @@
 package com.psiboard.users_service.integration;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.assertj.core.api.Assertions;
 
+import com.psiboard.users_service.application.dto.UserRequestDto;
 import com.psiboard.users_service.application.dto.UserResponseDto;
+import com.psiboard.users_service.domain.UserRole;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.properties")
+@Sql(scripts = "/sql/usuarios/usuarios-insert.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = "/sql/usuarios/usuarios-delete.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 public class UserRestControllerIntegrationTest {
 
     @Autowired
@@ -22,22 +25,20 @@ public class UserRestControllerIntegrationTest {
     @Test
     @DisplayName("Deve criar um usuário")
     public void shouldCreateUser() {
-        UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setId("123456789");
-        userResponseDto.setName("John Doe");
-        userResponseDto.setEmail("john.doe@example.com");
-        userResponseDto.setContact("+55 11 99999-9999");
-        UserResponseDto response = testClient
-        .post()
-        .uri("/auth/register")
-        .contentType(MediaType.APPLICATION_JSON)
-        .bodyValue(userResponseDto)
-        .exchange()
-        .expectStatus().isOk()
-        .expectBody(UserResponseDto.class)
-        .returnResult().getResponseBody();
+        UserResponseDto responseBody = testClient
+                .post()
+                .uri("/auth/register")
+                .bodyValue(new UserRequestDto(
+                        "Zezinho Silva",
+                        "zezinho.silva@example.com",
+                        "123456",
+                        "+5511999999999",
+                        UserRole.PROFESSIONAL
+                )).exchange()
+                .expectStatus().isOk().expectBody(UserResponseDto.class)
+                .returnResult().getResponseBody();
 
-        Assertions.assertThat(response).isNotNull();
+        Assertions.assertThat(responseBody).isNotNull();
     }
 
 }

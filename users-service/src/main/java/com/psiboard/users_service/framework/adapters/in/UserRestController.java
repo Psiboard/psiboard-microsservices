@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.psiboard.users_service.application.dto.PatientResponseDto;
 import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
 import com.psiboard.users_service.application.dto.UserResponseDto;
-import com.psiboard.users_service.application.exception.PatientServiceErrorResponse;
 import com.psiboard.users_service.application.ports.in.UserServiceInputPort;
 import com.psiboard.users_service.framework.adapters.out.feign.PatientFeignClient;
 
