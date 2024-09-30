@@ -110,7 +110,7 @@ public class UserPersistencePortImplTest {
             userPersistencePortImpl.findById(userId);
         });
 
-        String expectedMessage = "Paciente com id " + userId + " não foi encontrado";
+        String expectedMessage = "Usuário com id " + userId + " não foi encontrado";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
