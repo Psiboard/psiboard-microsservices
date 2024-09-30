@@ -39,6 +39,8 @@ public class UserRestControllerIntegrationTest {
                 .returnResult().getResponseBody();
 
         Assertions.assertThat(responseBody).isNotNull();
+        Assertions.assertThat(responseBody.getId()).isNotNull();
+        Assertions.assertThat(responseBody.getEmail()).isEqualTo("zezinho.silva@example.com");
     }
 
 }
