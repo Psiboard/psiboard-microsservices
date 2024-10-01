@@ -5,23 +5,30 @@ import { UpdateUserDto } from 'src/app/commons/dto/request/update-user.dto';
 import { UserRequestDto } from 'src/app/commons/dto/request/user-request.dto';
 import { UserResponseDto } from 'src/app/commons/dto/response/user-response.dto';
 import { BASE_URLS } from 'src/app/config/service.url';
+import { AuthLoginDto } from './dto/auth-login.dto';
+import { AuthTokenDto } from './dto/auth-token.dto';
+import { HttpRequestService } from 'src/app/commons/http/http-request.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpRequestService: HttpRequestService, // Injeta o serviço de requisição
+  ) {}
 
   async create(user: UserRequestDto): Promise<UserResponseDto> {
-    try {
-      const response = await firstValueFrom(
-        this.httpService.post(`${BASE_URLS.USERS_SERVICE}/auth/register`, user),
-      );
-      return response.data;
-    } catch (error) {
-      throw new HttpException(
-        error.response ? error.response.data : 'Erro ao cadastrar usuário',
-        error.response ? error.response.status : HttpStatus.BAD_REQUEST,
-      );
-    }
+    return await this.httpRequestService.request(
+      'POST',
+      `${BASE_URLS.USERS_SERVICE}/auth/register`,
+      user,
+    );
+  }
+
+  async login(login: AuthLoginDto): Promise<AuthTokenDto> {
+    return await this.httpRequestService.request(
+      'POST',
+      `${BASE_URLS.USERS_SERVICE}/auth/login`,
+      login,
+    );
   }
 
   findAll() {
