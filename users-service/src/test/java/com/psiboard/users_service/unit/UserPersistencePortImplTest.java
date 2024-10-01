@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -150,6 +151,13 @@ public class UserPersistencePortImplTest {
         userPersistencePortImpl.delete(userId);
 
         verify(userRepository).deleteById(userId);
+    }
+
+    @Test
+    @DisplayName("Deve retornar instancia de userRepository")
+    void testGetUserRepository_Instance() {
+        assertNotNull(userPersistencePortImpl.getUserRepository());
+        assertEquals(userRepository, userPersistencePortImpl.getUserRepository());
     }
 
 }
