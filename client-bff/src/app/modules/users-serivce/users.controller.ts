@@ -17,15 +17,13 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: UserRequestDto): UserResponseDto {
-    // return this.usersService.create(createUserDto);
-    return null;
+  create(@Body() createUserDto: UserRequestDto) {
+    return this.usersService.create(createUserDto);
   }
 
   @Get()
-  findAll(): UserResponseDto[] {
-    // return this.usersService.findAll();
-    return null;
+  findAll() {
+    return this.usersService.findAll();
   }
 
   @Get(':id')
@@ -35,7 +33,10 @@ export class UsersController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): UserResponseDto {
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): UserResponseDto {
     // return this.usersService.update(+id, updateUserDto);
     return null;
   }
