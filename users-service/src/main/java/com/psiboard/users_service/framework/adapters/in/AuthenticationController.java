@@ -39,10 +39,10 @@ public class AuthenticationController {
     public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto data) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.getEmail(), data.getPassword());
         var auth = this.authenticationManager.authenticate(usernamePassword);
-
+        var userData = this.serviceInputPort.findByEmail(data.getEmail());
         var token = tokenServiceInputPort.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok().body(new LoginResponseDto(token));
+        return ResponseEntity.ok().body(new LoginResponseDto(userData.getId(), userData.getName(), userData.getEmail(), token));
     }
 
     @PostMapping("/register")
