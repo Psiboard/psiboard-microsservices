@@ -14,7 +14,7 @@ public interface SchedulingPersistencePort {
 
     void delete(String id);
 
-    List<SchedulingResponseDto> findSchedules(LocalDate date);
+    List<SchedulingResponseDto> findSchedules(String userId, LocalDate date);
 
-    List<String> findAvailableHours(LocalDate date);
+    List<String> findAvailableHours(LocalDate date, String userId);
 }

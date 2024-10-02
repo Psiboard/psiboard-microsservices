@@ -40,13 +40,13 @@ public class SchedulingServiceUseCases implements SchedulingServiceInputPort {
     }
 
     @Override
-    public List<SchedulingResponseDto> findSchedules(LocalDate date) {
-        return schedulingPersistencePort.findSchedules(date);
+    public List<SchedulingResponseDto> findSchedules(String userId, LocalDate date) {
+        return schedulingPersistencePort.findSchedules(userId, date);
     }
 
     @Override
-    public List<String> findAvailableHours(LocalDate date) {
-        return schedulingPersistencePort.findAvailableHours(date);
+    public List<String> findAvailableHours(LocalDate date, String userId) {
+        return schedulingPersistencePort.findAvailableHours(date, userId);
     }
 
     

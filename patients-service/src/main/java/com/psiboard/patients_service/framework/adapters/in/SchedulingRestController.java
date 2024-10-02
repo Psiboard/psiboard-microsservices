@@ -35,14 +35,14 @@ public class SchedulingRestController {
         return schedulingServiceInputPort.findAll();
     }
 
-    @GetMapping("date")
-    public List<SchedulingResponseDto> findSchedules(@RequestParam LocalDate date) {
-        return schedulingServiceInputPort.findSchedules(date);
+    @GetMapping("/{userId}/date")
+    public List<SchedulingResponseDto> findSchedules(@PathVariable String userId, @RequestParam LocalDate date) {
+        return schedulingServiceInputPort.findSchedules(userId, date);
     }
 
-    @GetMapping("/available")
-    public List<String> findAvailableHours(@RequestParam LocalDate date) {
-        return schedulingServiceInputPort.findAvailableHours(date);
+    @GetMapping("/{userId}/available")
+    public List<String> findAvailableHours(@PathVariable String userId, @RequestParam LocalDate date) {
+        return schedulingServiceInputPort.findAvailableHours(date,userId);
     }
 
     @PostMapping()

@@ -83,15 +83,15 @@ public class SchedulingPersistencePortImpl implements SchedulingPersistencePort 
     }
 
     @Override
-    public List<SchedulingResponseDto> findSchedules(LocalDate date) {
-        return schedulingRepository.findByDate(date).stream()
+    public List<SchedulingResponseDto> findSchedules(String id, LocalDate date) {
+        return schedulingRepository.findByDateAndUserId(date, id).stream()
                 .map(Utils::convertToSchedulingResponseDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<String> findAvailableHours(LocalDate date) {
-        List<Scheduling> schedulings = schedulingRepository.findByDate(date);
+    public List<String> findAvailableHours(LocalDate date, String userId) {
+        List<Scheduling> schedulings = schedulingRepository.findByDateAndUserId(date, userId);
 
         List<String> allHours = Utils.generateAllHours();
 

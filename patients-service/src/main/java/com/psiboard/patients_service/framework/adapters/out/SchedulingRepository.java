@@ -16,5 +16,6 @@ public interface SchedulingRepository extends JpaRepository<Scheduling, String> 
     // Verifica se existe um agendamento em uma data e hora específicas
     boolean existsByDateAndHour(LocalDate date, String hour);
 
-    List<Scheduling> findByDate(LocalDate date);
+    @Query("SELECT s FROM Scheduling s WHERE s.date = :date AND s.user_id = :userId")
+    List<Scheduling> findByDateAndUserId(LocalDate date, String userId);
 }
