@@ -1,12 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SchedulingServiceService } from './scheduling-service.service';
-import { CreateSchedulingServiceDto } from './dto/create-scheduling-service.dto';
-import { UpdateSchedulingServiceDto } from './dto/update-scheduling-service.dto';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { SchedulingServiceService } from './scheduling.service';
+import { CreateSchedulingServiceDto } from './dto/create-scheduling.dto';
+import { UpdateSchedulingServiceDto } from './dto/update-scheduling.dto';
 
-@Controller('scheduling-service')
+@Controller('scheduling')
 export class SchedulingServiceController {
   constructor(private readonly schedulingServiceService: SchedulingServiceService) {}
 
+  @Get('/user/:id/date')
+  findSchedules(@Param('id') id: string, @Query('date') date: any){
+    return this.schedulingServiceService.findSchedules(id, date);
+  }
   @Post()
   create(@Body() createSchedulingServiceDto: CreateSchedulingServiceDto) {
     return this.schedulingServiceService.create(createSchedulingServiceDto);

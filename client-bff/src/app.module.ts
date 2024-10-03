@@ -3,10 +3,16 @@ import { UsersModule } from './app/modules/user-serivce/users.module';
 import { PatientsModule } from './app/modules/patient-service/patients.module';
 import { HttpModule } from '@nestjs/axios';
 import { AuthModule } from './app/modules/auth/auth.module';
-import { SchedulingServiceModule } from './app/modules/scheduling-service/scheduling-service.module';
+import { SchedulingServiceModule } from './app/modules/scheduling-service/scheduling.module';
 
 @Module({
-  imports: [UsersModule, PatientsModule, HttpModule, AuthModule, SchedulingServiceModule],
+  imports: [
+    UsersModule,
+    PatientsModule,
+    HttpModule,
+    AuthModule,
+    SchedulingServiceModule,
+  ],
   controllers: [],
   providers: [],
 })
