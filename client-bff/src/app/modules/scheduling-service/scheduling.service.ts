@@ -6,11 +6,18 @@ import { BASE_URLS } from 'src/app/config/service.url';
 
 @Injectable()
 export class SchedulingServiceService {
+  
   constructor(private readonly httpRequestService: HttpRequestService) {}
   async findSchedules(id: string, date: string) {
     return await this.httpRequestService.request(
       'GET',
       `${BASE_URLS.PATIENTS_SERVICE}/scheduling/${id}/date?date=${date}`,
+    );
+  }
+  async findAvailabeSchedules(id: string, date: any) {
+    return await this.httpRequestService.request(
+      'GET',
+      `${BASE_URLS.PATIENTS_SERVICE}/scheduling/${id}/available?date=${date}`,
     );
   }
   create(createSchedulingServiceDto: CreateSchedulingServiceDto) {

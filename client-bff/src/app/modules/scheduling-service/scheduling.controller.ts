@@ -11,6 +11,11 @@ export class SchedulingServiceController {
   findSchedules(@Param('id') id: string, @Query('date') date: any){
     return this.schedulingServiceService.findSchedules(id, date);
   }
+
+  @Get('/user/:id/available')
+  findAvailabeSchedules(@Param('id') id: string, @Query('date') date: any){
+    return this.schedulingServiceService.findAvailabeSchedules(id, date);
+  }
   @Post()
   create(@Body() createSchedulingServiceDto: CreateSchedulingServiceDto) {
     return this.schedulingServiceService.create(createSchedulingServiceDto);
