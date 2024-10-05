@@ -22,5 +22,5 @@ public class PatientRequestDto {
     private String state;
     private String zip_code;
     private String additional_info;
-    private UUID user_id;
+    private String user_id;
 }

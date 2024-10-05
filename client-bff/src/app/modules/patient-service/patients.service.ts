@@ -13,8 +13,12 @@ export class PatientsService {
       `${BASE_URLS.PATIENTS_SERVICE}/patients/user/${id}`,
     )
   }
-  create(createPatientDto: PatientResponseDto) {
-    return 'This action adds a new patient';
+  async create(createPatientDto: PatientResponseDto) {
+    return await this.httpRequestService.request(
+      'POST',
+      `${BASE_URLS.PATIENTS_SERVICE}/patients`,
+      createPatientDto,
+    );
   }
 
   findAll() {
