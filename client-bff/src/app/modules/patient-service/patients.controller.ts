@@ -32,7 +32,7 @@ export class PatientsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.patientsService.findOne(+id);
+    return this.patientsService.findOne(id);
   }
 
   @Patch(':id')

@@ -19,10 +19,14 @@ export class PatientsService {
 
   findAll() {
     return `This action returns all patients`;
+
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} patient`;
+  async findOne(id: string) {
+    return await this.httpRequestService.request(
+      'GET',
+      `${BASE_URLS.PATIENTS_SERVICE}/patients/patient/${id}`,
+    );
   }
 
   update(id: number, updatePatientDto: any) {
