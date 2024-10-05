@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateSchedulingServiceDto } from './dto/create-scheduling.dto';
-import { UpdateSchedulingServiceDto } from './dto/update-scheduling.dto';
 import { HttpRequestService } from 'src/app/commons/http/http-request.service';
 import { BASE_URLS } from 'src/app/config/service.url';
+import { SchedulingRequestDto } from './dto/scheduling-request.dto';
 
 @Injectable()
 export class SchedulingServiceService {
@@ -20,8 +19,12 @@ export class SchedulingServiceService {
       `${BASE_URLS.PATIENTS_SERVICE}/scheduling/${id}/available?date=${date}`,
     );
   }
-  create(createSchedulingServiceDto: CreateSchedulingServiceDto) {
-    return 'This action adds a new schedulingService';
+  async create(schedulingRequestDto: SchedulingRequestDto) {
+    return await this.httpRequestService.request(
+      'POST',
+      `${BASE_URLS.PATIENTS_SERVICE}/scheduling`,
+      schedulingRequestDto,
+    );
   }
 
   findAll() {
@@ -32,11 +35,18 @@ export class SchedulingServiceService {
     return `This action returns a #${id} schedulingService`;
   }
 
-  update(id: number, updateSchedulingServiceDto: UpdateSchedulingServiceDto) {
-    return `This action updates a #${id} schedulingService`;
+  async update(id: string, schedulingRequestDto: SchedulingRequestDto) {
+    return await this.httpRequestService.request(
+      'PUT',
+      `${BASE_URLS.PATIENTS_SERVICE}/scheduling/${id}`,
+      schedulingRequestDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} schedulingService`;
+  async remove(id: string) {
+    return await this.httpRequestService.request(
+      'DELETE',
+      `${BASE_URLS.PATIENTS_SERVICE}/scheduling/${id}`,
+    );
   }
 }

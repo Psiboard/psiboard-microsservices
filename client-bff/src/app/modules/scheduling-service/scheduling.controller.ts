@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Put } from '@nestjs/common';
 import { SchedulingServiceService } from './scheduling.service';
-import { CreateSchedulingServiceDto } from './dto/create-scheduling.dto';
-import { UpdateSchedulingServiceDto } from './dto/update-scheduling.dto';
+import { SchedulingRequestDto } from './dto/scheduling-request.dto';
+import { SchedulingResponseDto } from './dto/scheduling-response.dto';
 
 @Controller('scheduling')
 export class SchedulingServiceController {
@@ -17,8 +17,8 @@ export class SchedulingServiceController {
     return this.schedulingServiceService.findAvailabeSchedules(id, date);
   }
   @Post()
-  create(@Body() createSchedulingServiceDto: CreateSchedulingServiceDto) {
-    return this.schedulingServiceService.create(createSchedulingServiceDto);
+  create(@Body() schedulingRequestDto: SchedulingRequestDto) {
+    return this.schedulingServiceService.create(schedulingRequestDto);
   }
 
   @Get()
@@ -31,13 +31,13 @@ export class SchedulingServiceController {
     return this.schedulingServiceService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSchedulingServiceDto: UpdateSchedulingServiceDto) {
-    return this.schedulingServiceService.update(+id, updateSchedulingServiceDto);
+  @Put(':id')
+  update(@Param('id') id: string, @Body() schedulingRequestDto: SchedulingRequestDto) {
+    return this.schedulingServiceService.update(id, schedulingRequestDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.schedulingServiceService.remove(+id);
+    return this.schedulingServiceService.remove(id);
   }
 }

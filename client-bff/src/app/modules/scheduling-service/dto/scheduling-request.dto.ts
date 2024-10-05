@@ -1,6 +1,5 @@
-export class SchedulingResponseDto {
-  id: string;
-  date: string;
+export class SchedulingRequestDto {
+  date: any;
   hour: string;
   type: string;
   user_id: string;
