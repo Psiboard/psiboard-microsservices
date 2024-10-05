@@ -10,7 +10,7 @@ export class PatientsService {
   async findUserPatients(id: string): Promise<PatientResponseDto[]> {
     return await this.httpRequestService.request(
       'GET',
-      `${BASE_URLS.PATIENTS_SERVICE}/patients/${id}`,
+      `${BASE_URLS.PATIENTS_SERVICE}/patients/user/${id}`,
     )
   }
   create(createPatientDto: PatientResponseDto) {

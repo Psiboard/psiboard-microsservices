@@ -71,4 +71,11 @@ public class PatientPersistencePortImpl implements PatientPersistencePort {
                 .map(Utils::convertToPatientResponseDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public PatientResponseDto findOne(String id) {
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new CustomGenericException("Paciente com id " + id + " não foi encontrado"));
+        return patientMapper.toDto(patient);
+    }
 }

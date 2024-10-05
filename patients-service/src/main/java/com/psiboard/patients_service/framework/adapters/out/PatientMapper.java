@@ -14,12 +14,10 @@ import com.psiboard.patients_service.domain.Patient;
 public interface PatientMapper {
     PatientMapper INSTANCE = Mappers.getMapper(PatientMapper.class);
 
-    // Mapeamento de UserRequestDto para User
     @Mapping(target = "id", ignore = true) // O ID é gerado automaticamente
-    Patient toEntity(PatientRequestDto userRequestDto);
+    Patient toEntity(PatientRequestDto patientRequestDto);
 
-    // Mapeamento de User para UserResponseDto
-    PatientResponseDto toDto(Patient user);
+    PatientResponseDto toDto(Patient patient);
     
-    void updateUserFromDto(UpdatePatientRequestDto dto, @MappingTarget Patient user);
+    void updateUserFromDto(UpdatePatientRequestDto dto, @MappingTarget Patient patient);
 }

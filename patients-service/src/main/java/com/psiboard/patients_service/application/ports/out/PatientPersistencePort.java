@@ -19,4 +19,6 @@ public interface PatientPersistencePort {
     PatientResponseDto update(String id, UpdatePatientRequestDto patient);
 
     void delete(String id);
+
+    PatientResponseDto findOne(String id);
 }

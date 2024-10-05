@@ -49,4 +49,9 @@ public class PatientServiceUseCases implements PatientServiceInputPort {
         return patientPersistencePort.findPatientByName(name);
     }
 
+    @Override
+    public PatientResponseDto findOne(String id) {
+        return patientPersistencePort.findOne(id);
+    }
+
 }
