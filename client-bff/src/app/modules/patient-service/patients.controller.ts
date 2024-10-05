@@ -30,7 +30,7 @@ export class PatientsController {
     return this.patientsService.findUserPatients(id);
   }
 
-  @Get(':id')
+  @Get('/patient/:id')
   findOne(@Param('id') id: string) {
     return this.patientsService.findOne(id);
   }
