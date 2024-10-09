@@ -1,0 +1,76 @@
+version: '3.8'
+services:
+  discovery-service:
+    build: 
+      context: ./service-discovery
+    image: discovery-service
+    container_name: discovery-service
+    ports:
+      - "8761:8761"
+    networks:
+      - spring-boot-network
+
+  users-service:
+    build: 
+      context: ./users-service
+    image: users-service
+    container_name: users-service
+    environment:
+      - JWT_SECRET=my-secret-key
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - DATABASE_URL=jdbc:postgresql://${PGHOST}/${PGDATABASE}?user=${PGUSER}&password=${PGPASSWORD}&sslmode=require
+      - DATABASE_USER=${PGUSER}
+      - DATABASE_PASSWORD=${PGPASSWORD}
+    ports:
+      - "8081:8081"
+    networks:
+      - spring-boot-network
+    depends_on:
+      - discovery-service
+
+  patients-service:
+    build: 
+      context: ./patients-service
+    image: patients-service
+    container_name: patients-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - DATABASE_URL=jdbc:postgresql://${PGHOST}/${PGDATABASE}?user=${PGUSER}&password=${PGPASSWORD}&sslmode=require
+      - DATABASE_USER=${PGUSER}
+      - DATABASE_PASSWORD=${PGPASSWORD}
+    ports:
+      - "8082:8082"
+    networks:
+      - spring-boot-network
+    depends_on:
+      - discovery-service
+
+  gateway-service:
+    build: 
+      context: ./api-gateway
+    image: gateway-service
+    container_name: gateway-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+    ports:
+      - "8080:8080"
+    networks:
+      - spring-boot-network
+    depends_on:
+      - discovery-service
+
+  client-bff:
+    build:
+      context: ./client-bff
+    image: client-bff
+    container_name: client-bff
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+    networks:
+      - spring-boot-network
+
+networks:
+  spring-boot-network:
+    driver: bridge
