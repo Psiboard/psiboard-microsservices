@@ -9,10 +9,10 @@ import com.psiboard.users_service.application.dto.PatientResponseDto;
 
 import java.util.List;
 
-@FeignClient(name = "patients-service", fallback = PatientClientFallback.class)
+@FeignClient(name = "patients-service", url = "http://localhost:8082", fallback = PatientClientFallback.class)
 public interface PatientFeignClient {
 
-    @GetMapping("/patients/{userId}")
+    @GetMapping("/patients/user/{userId}")
     public ResponseEntity<List<PatientResponseDto>> findPatientsByUserId(@PathVariable("userId") String userId);
 
 }

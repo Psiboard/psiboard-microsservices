@@ -22,6 +22,7 @@ export class HttpRequestService {
       const response = await methodsMap[method]();
       return response.data; 
     } catch (error) {
+      console.log(error);
       throw new HttpException(
         error.response ? error.response.data : 'Erro ao fazer a requisição',
         error.response ? error.response.status : HttpStatus.BAD_REQUEST,
