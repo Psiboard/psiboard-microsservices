@@ -1,4 +1,4 @@
 export const BASE_URLS = {
-  USERS_SERVICE: 'http://localhost:8080/users-service',
-  PATIENTS_SERVICE: 'http://localhost:8080/patients-service',
+  USERS_SERVICE: `${process.env.API_GATEWAY_URL}/users-service`,
+  PATIENTS_SERVICE: `${process.env.API_GATEWAY_URL}/patients-service`,
 };

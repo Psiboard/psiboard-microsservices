@@ -72,6 +72,7 @@ services:
     container_name: client-bff
     environment:
       - NODE_ENV=production
+      - API_GATEWAY_URL=http://gateway-service:8080
     ports:
       - "3000:3000"
     networks:
