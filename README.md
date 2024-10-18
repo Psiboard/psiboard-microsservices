@@ -42,7 +42,7 @@ A arquitetura deste projeto segue o padrão de microsserviços, onde cada servi�
    - Reduz a complexidade e latência no frontend, oferecendo respostas otimizadas e personalizadas para o cliente.
 
 ## Arquitetura do projeto
-![Logo do Projeto](/architecture.png)
+![Logo do Projeto](./architecture.png)
 
 
 ## Configurações do Projeto
