@@ -41,6 +41,10 @@ A arquitetura deste projeto segue o padrão de microsserviços, onde cada servi�
    - Implementado com NestJS, o BFF faz a agregação de dados para o frontend.
    - Reduz a complexidade e latência no frontend, oferecendo respostas otimizadas e personalizadas para o cliente.
 
+## Arquitetura do projeto
+![Logo do Projeto](architecture.png)
+
+
 ## Configurações do Projeto
 
 O entrypoiont inicial do projeto é o BFF, porém os demais serviços precisam estar ativos para haver a comunicação. O projeto está configurado tanto para uso local (rodando os apps Spring separadamente), quanto para uso containerizado no Docker (rodando o docker-compose.yaml)
