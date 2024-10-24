@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PatientResponseDto } from './dto/patient-response.dto';
 import { HttpRequestService } from 'src/app/commons/http/http-request.service';
 import { BASE_URLS } from 'src/app/config/service.url';
+import { PatientRequestDto } from './dto/patient-request.dto';
 
 @Injectable()
 export class PatientsService {
@@ -13,17 +14,12 @@ export class PatientsService {
       `${BASE_URLS.PATIENTS_SERVICE}/patients/user/${id}`,
     )
   }
-  async create(createPatientDto: PatientResponseDto) {
+  async create(createPatientDto: PatientRequestDto) {
     return await this.httpRequestService.request(
       'POST',
       `${BASE_URLS.PATIENTS_SERVICE}/patients`,
       createPatientDto,
     );
-  }
-
-  findAll() {
-    return `This action returns all patients`;
-
   }
 
   async findOne(id: string) {
@@ -33,11 +29,18 @@ export class PatientsService {
     );
   }
 
-  update(id: number, updatePatientDto: any) {
-    return `This action updates a #${id} patient`;
+  async update(id: number, updatePatientDto: PatientRequestDto) {
+    return await this.httpRequestService.request(
+      'PUT',
+      `${BASE_URLS.PATIENTS_SERVICE}/patients/${id}`,
+      updatePatientDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} patient`;
+  async remove(id: number) {
+    return await this.httpRequestService.request(
+      'DELETE',
+      `${BASE_URLS.PATIENTS_SERVICE}/patients/${id}`,
+    ); 
   }
 }
