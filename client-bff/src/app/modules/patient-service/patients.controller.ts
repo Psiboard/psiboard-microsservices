@@ -20,11 +20,6 @@ export class PatientsController {
     return this.patientsService.create(createPatientDto);
   }
 
-  @Get()
-  findAll() {
-    return this.patientsService.findAll();
-  }
-
   @Get('/user/:id/patients')
   findSchedules(@Param('id') id: string): Promise<PatientResponseDto[]> {
     return this.patientsService.findUserPatients(id);
