@@ -10,13 +10,14 @@ import {
 } from '@nestjs/common';
 import { PatientsService } from './patients.service';
 import { PatientResponseDto } from './dto/patient-response.dto';
+import { PatientRequestDto } from './dto/patient-request.dto';
 
 @Controller('patients')
 export class PatientsController {
   constructor(private readonly patientsService: PatientsService) {}
 
   @Post()
-  create(@Body() createPatientDto: PatientResponseDto) {
+  create(@Body() createPatientDto: PatientRequestDto) {
     return this.patientsService.create(createPatientDto);
   }
 
@@ -31,7 +32,7 @@ export class PatientsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePatientDto: any) {
+  update(@Param('id') id: string, @Body() updatePatientDto: PatientRequestDto) {
     return this.patientsService.update(+id, updatePatientDto);
   }
 
