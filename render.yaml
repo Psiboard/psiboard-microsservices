@@ -1,0 +1,64 @@
+services:
+  - type: web
+    name: discovery-service
+    runtime: docker
+    dockerfilePath: ./service-discovery/Dockerfile
+    envVars:
+      - key: PORT
+        value: 8761
+      - key: SPRING_PROFILES_ACTIVE
+        value: native
+
+  - type: web
+    name: users-service
+    runtime: docker
+    dockerfilePath: ./users-service/Dockerfile
+    envVars:
+      - key: PORT
+        value: 8081
+      - key: JWT_SECRET
+        value: my-secret-key
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: http://discovery-service:8761/eureka/
+      - key: DATABASE_URL
+        value: jdbc:postgresql://${PGHOST}/${PGDATABASE}?user=${PGUSER}&password=${PGPASSWORD}&sslmode=require
+      - key: DATABASE_USER
+        value: ${PGUSER}
+      - key: DATABASE_PASSWORD
+        value: ${PGPASSWORD}
+
+  - type: web
+    name: patients-service
+    runtime: docker
+    dockerfilePath: ./patients-service/Dockerfile
+    envVars:
+      - key: PORT
+        value: 8082
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: http://discovery-service:8761/eureka/
+      - key: DATABASE_URL
+        value: jdbc:postgresql://${PGHOST}/${PGDATABASE}?user=${PGUSER}&password=${PGPASSWORD}&sslmode=require
+      - key: DATABASE_USER
+        value: ${PGUSER}
+      - key: DATABASE_PASSWORD
+        value: ${PGPASSWORD}
+
+  - type: web
+    name: gateway-service
+    runtime: docker
+    dockerfilePath: ./api-gateway/Dockerfile
+    envVars:
+      - key: PORT
+        value: 8080
+      - key: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+        value: http://discovery-service:8761/eureka/
+
+  - type: web
+    name: client-bff
+    runtime: docker
+    dockerfilePath: ./client-bff/Dockerfile
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: API_GATEWAY_URL
+        value: http://gateway-service:8080
