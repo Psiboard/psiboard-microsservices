@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.psiboard.users_service.application.ports.in.UserServiceInputPort;
+import com.psiboard.users_service.core.application.ports.in.UserServiceInputPort;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

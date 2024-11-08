@@ -15,12 +15,12 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import com.psiboard.users_service.application.dto.PatientResponseDto;
-import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
-import com.psiboard.users_service.application.dto.UserResponseDto;
-import com.psiboard.users_service.application.ports.in.UserServiceInputPort;
-import com.psiboard.users_service.framework.adapters.in.UserRestController;
-import com.psiboard.users_service.framework.adapters.out.feign.PatientFeignClient;
+import com.psiboard.users_service.core.application.dto.PatientResponseDto;
+import com.psiboard.users_service.core.application.dto.UpdateUserRequestDto;
+import com.psiboard.users_service.core.application.dto.UserResponseDto;
+import com.psiboard.users_service.core.application.ports.in.UserServiceInputPort;
+import com.psiboard.users_service.adapters.in.UserRestController;
+import com.psiboard.users_service.adapters.out.feign.PatientFeignClient;
 
 @ExtendWith(MockitoExtension.class)
 public class UserRestControllerTest {

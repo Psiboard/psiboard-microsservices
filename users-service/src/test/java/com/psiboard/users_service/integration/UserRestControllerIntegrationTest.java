@@ -9,9 +9,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.assertj.core.api.Assertions;
 
-import com.psiboard.users_service.application.dto.UserRequestDto;
-import com.psiboard.users_service.application.dto.UserResponseDto;
-import com.psiboard.users_service.domain.UserRole;
+import com.psiboard.users_service.core.application.dto.UserRequestDto;
+import com.psiboard.users_service.core.application.dto.UserResponseDto;
+import com.psiboard.users_service.core.domain.UserRole;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.properties")

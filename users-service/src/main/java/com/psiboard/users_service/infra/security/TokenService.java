@@ -10,8 +10,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.psiboard.users_service.application.ports.in.TokenServiceInputPort;
-import com.psiboard.users_service.domain.User;
+import com.psiboard.users_service.core.application.ports.in.TokenServiceInputPort;
+import com.psiboard.users_service.core.domain.User;
 
 import org.springframework.beans.factory.annotation.Value;
 

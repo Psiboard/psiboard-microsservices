@@ -22,14 +22,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.psiboard.users_service.application.dto.UpdateUserRequestDto;
-import com.psiboard.users_service.application.dto.UserRequestDto;
-import com.psiboard.users_service.application.dto.UserResponseDto;
-import com.psiboard.users_service.application.exception.CustomGenericException;
-import com.psiboard.users_service.domain.User;
-import com.psiboard.users_service.framework.adapters.out.UserMapper;
-import com.psiboard.users_service.framework.adapters.out.UserPersistencePortImpl;
-import com.psiboard.users_service.framework.adapters.out.UserRepository;
+import com.psiboard.users_service.core.application.dto.UpdateUserRequestDto;
+import com.psiboard.users_service.core.application.dto.UserRequestDto;
+import com.psiboard.users_service.core.application.dto.UserResponseDto;
+import com.psiboard.users_service.core.application.exception.CustomGenericException;
+import com.psiboard.users_service.core.domain.User;
+import com.psiboard.users_service.adapters.out.UserMapper;
+import com.psiboard.users_service.adapters.out.UserPersistencePortImpl;
+import com.psiboard.users_service.adapters.out.UserRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class UserPersistencePortImplTest {
