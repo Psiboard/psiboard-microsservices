@@ -38,6 +38,8 @@ services:
       - DATABASE_URL=jdbc:postgresql://${PGHOST}/${PGDATABASE}?user=${PGUSER}&password=${PGPASSWORD}&sslmode=require
       - DATABASE_USER=${PGUSER}
       - DATABASE_PASSWORD=${PGPASSWORD}
+      - RABBITMQ_ADDRESS=${RABBITMQ_ADDRESS}
+      - RABBITMQ_QUEUE=${RABBITMQ_QUEUE}
     ports:
       - "8082:8082"
     networks:
