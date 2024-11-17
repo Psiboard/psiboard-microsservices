@@ -25,10 +25,10 @@ public class SchedulingServiceUseCases implements SchedulingServiceInputPort {
     }
 
     @Override
-    @Transactional
+    // @Transactional
     public SchedulingResponseDto create(SchedulingRequestDto patient) {
         SchedulingResponseDto patientResponse = schedulingPersistencePort.create(patient);
-        messagingProducerInterface.publishNotification(patient);
+        // messagingProducerInterface.publishNotification(patient);
         return patientResponse;
     }
 
