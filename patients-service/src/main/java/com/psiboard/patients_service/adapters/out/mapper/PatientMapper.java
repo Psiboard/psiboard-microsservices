@@ -1,4 +1,4 @@
-package com.psiboard.patients_service.adapters.out;
+package com.psiboard.patients_service.adapters.out.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

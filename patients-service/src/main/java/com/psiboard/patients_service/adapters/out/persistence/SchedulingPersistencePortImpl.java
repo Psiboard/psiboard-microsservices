@@ -1,4 +1,4 @@
-package com.psiboard.patients_service.adapters.out;
+package com.psiboard.patients_service.adapters.out.persistence;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 
 import com.psiboard.patients_service.adapters.helpers.Utils;
+import com.psiboard.patients_service.adapters.out.mapper.SchedulingMapper;
 import com.psiboard.patients_service.core.application.dto.SchedulingRequestDto;
 import com.psiboard.patients_service.core.application.dto.SchedulingResponseDto;
 import com.psiboard.patients_service.core.application.exception.BusinessException;

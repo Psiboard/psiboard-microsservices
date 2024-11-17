@@ -1,4 +1,4 @@
-package com.psiboard.patients_service.adapters.out;
+package com.psiboard.patients_service.adapters.out.persistence;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package com.psiboard.patients_service.adapters.out;
+package com.psiboard.patients_service.adapters.out.persistence;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 
 import com.psiboard.patients_service.adapters.helpers.Utils;
+import com.psiboard.patients_service.adapters.out.mapper.PatientMapper;
 import com.psiboard.patients_service.core.application.dto.PatientRequestDto;
 import com.psiboard.patients_service.core.application.dto.PatientResponseDto;
 import com.psiboard.patients_service.core.application.dto.UpdatePatientRequestDto;
