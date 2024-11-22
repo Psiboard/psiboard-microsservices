@@ -8,7 +8,7 @@ services:
     ports:
       - "8761:8761"
     networks:
-      - spring-boot-network
+      - psiboard-network
 
   users-service:
     build: 
@@ -24,7 +24,7 @@ services:
     ports:
       - "8081:8081"
     networks:
-      - spring-boot-network
+      - psiboard-network
     depends_on:
       - discovery-service
 
@@ -43,7 +43,7 @@ services:
     ports:
       - "8082:8082"
     networks:
-      - spring-boot-network
+      - psiboard-network
     depends_on:
       - discovery-service
 
@@ -57,7 +57,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - spring-boot-network
+      - psiboard-network
     depends_on:
       - discovery-service
 
@@ -72,8 +72,8 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - spring-boot-network
+      - psiboard-network
 
 networks:
-  spring-boot-network:
+  psiboard-network:
     driver: bridge
