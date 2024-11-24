@@ -10,6 +10,32 @@ services:
     networks:
       - psiboard-network
 
+  gateway-service:
+    build: 
+      context: ./api-gateway
+    image: gateway-service
+    container_name: gateway-service
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+    ports:
+      - "8080:8080"
+    networks:
+      - psiboard-network
+    depends_on:
+      - discovery-service
+
+  rabbitmq:
+    image: "rabbitmq:3.8.6-management"
+    container_name: psiboard-rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - psiboard-network
+
   users-service:
     build: 
       context: ./users-service
@@ -40,26 +66,32 @@ services:
       - DATABASE_PASSWORD=${PGPASSWORD}
       - RABBITMQ_ADDRESS=${RABBITMQ_ADDRESS}
       - RABBITMQ_QUEUE=${RABBITMQ_QUEUE}
+      - RABBITMQ_HOST=rabbitmq
     ports:
       - "8082:8082"
     networks:
       - psiboard-network
     depends_on:
       - discovery-service
-
-  gateway-service:
+      - rabbitmq
+  
+  notification-service:
     build: 
-      context: ./api-gateway
-    image: gateway-service
-    container_name: gateway-service
+      context: ./notification-service
+    image: notification-service
+    container_name: notification-service
     environment:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-service:8761/eureka/
+      - RABBITMQ_ADDRESS=${RABBITMQ_ADDRESS}
+      - RABBITMQ_QUEUE=${RABBITMQ_QUEUE}
+      - RABBITMQ_HOST=rabbitmq
     ports:
-      - "8080:8080"
+      - "8083:8083"
     networks:
       - psiboard-network
     depends_on:
       - discovery-service
+      - rabbitmq
 
   client-bff:
     build:
