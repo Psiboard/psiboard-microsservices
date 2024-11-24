@@ -42,6 +42,16 @@
             "projectName": "api-gateway",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-NotificationServiceApplication<notification-service>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.psiboard.notification_service.NotificationServiceApplication",
+            "projectName": "notification-service",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
