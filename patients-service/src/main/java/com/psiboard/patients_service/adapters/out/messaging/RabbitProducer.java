@@ -4,7 +4,6 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.psiboard.patients_service.core.application.dto.SchedulingRequestDto;
@@ -26,11 +25,8 @@ public class RabbitProducer implements MessagingProducerInterface {
 
     @Override
     public void publishNotification(SchedulingRequestDto schedulingRequestDto) {
-        try {
-            String jsonMessage = objectMapper.writeValueAsString(schedulingRequestDto);
-            rabbitTemplate.convertAndSend(routingKey, jsonMessage);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        System.out.println("Mensagem produzida: " + schedulingRequestDto);
+        rabbitTemplate.convertAndSend(routingKey, schedulingRequestDto);
+
     }
 }
