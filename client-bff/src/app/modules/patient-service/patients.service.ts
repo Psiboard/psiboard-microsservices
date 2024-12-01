@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PatientResponseDto } from './dto/patient-response.dto';
-import { HttpRequestService } from 'src/app/commons/http/http-request.service';
+import { HttpRequestService } from 'src/app/commons/modules/http/http-request.service';
 import { PatientRequestDto } from './dto/patient-request.dto';
 import { AppConfigService } from 'src/app/config/config.service';
 

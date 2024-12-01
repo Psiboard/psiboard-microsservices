@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from '../../commons/dto/request/update-user.dto';
-import { HttpRequestService } from 'src/app/commons/http/http-request.service';
+import { HttpRequestService } from 'src/app/commons/modules/http/http-request.service';
 import { AppConfigService } from 'src/app/config/config.service';
 
 @Injectable()

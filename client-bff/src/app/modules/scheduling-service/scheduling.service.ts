@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { HttpRequestService } from 'src/app/commons/http/http-request.service';
+import { HttpRequestService } from 'src/app/commons/modules/http/http-request.service';
 import { SchedulingRequestDto } from './dto/scheduling-request.dto';
 import { AppConfigService } from 'src/app/config/config.service';
 

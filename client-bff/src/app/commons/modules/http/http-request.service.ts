@@ -1,21 +1,23 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { TokenStorageService } from '../token/token-storage.service';
 
 @Injectable()
 export class HttpRequestService {
   constructor(
     private readonly httpService: HttpService,
+    private readonly tokenStorageService: TokenStorageService
   ) {}
 
   async request(
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     url: string,
     data?: any,
-    token?: string,
   ): Promise<any> {
 
     try {
+      const token = await this.tokenStorageService.getAccessToken();
       const options = {
         headers: token ? { Authorization: `Bearer ${token}` } : {},
       };
