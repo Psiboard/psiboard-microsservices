@@ -35,6 +35,14 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     networks:
       - psiboard-network
+  
+  redis:
+    image: redis
+    container_name: psiboard-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - psiboard-network
 
   users-service:
     build: 
