@@ -16,6 +16,8 @@ Este projeto implementa uma nova solução para as funcionalidades do sistema Ps
 - **Arquitetura Hexagonal (Ports and Adapters)**: Organiza o código em torno de casos de uso, permitindo fácil adaptação a diferentes tecnologias externas.
 - **NestJS**: Framework Node.js para construção do Client BFF.
   - O BFF atua como um intermediário entre os microsserviços e o cliente final, agregando e formatando dados conforme necessário.
+- **Docker**: Para poder startar os serviços em containers orquestrados.
+- **Redis**: Serviço de cache para armazenamento do token de acesso usado para liberar requisições à rotas
 
 ## Estrutura do Projeto
 
