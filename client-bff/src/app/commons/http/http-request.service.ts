@@ -4,23 +4,31 @@ import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class HttpRequestService {
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+  ) {}
 
   async request(
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     url: string,
-    data?: any
+    data?: any,
+    token?: string,
   ): Promise<any> {
+
     try {
+      const options = {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      };
+
       const methodsMap = {
-        GET: () => firstValueFrom(this.httpService.get(url)),
-        POST: () => firstValueFrom(this.httpService.post(url, data)),
-        PUT: () => firstValueFrom(this.httpService.put(url, data)),
-        DELETE: () => firstValueFrom(this.httpService.delete(url)),
+        GET: () => firstValueFrom(this.httpService.get(url, options)),
+        POST: () => firstValueFrom(this.httpService.post(url, data, options)),
+        PUT: () => firstValueFrom(this.httpService.put(url, data, options)),
+        DELETE: () => firstValueFrom(this.httpService.delete(url, options)),
       };
 
       const response = await methodsMap[method]();
-      return response.data; 
+      return response.data;
     } catch (error) {
       console.log(error);
       throw new HttpException(

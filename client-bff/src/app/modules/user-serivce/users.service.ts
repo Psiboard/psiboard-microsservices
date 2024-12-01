@@ -1,10 +1,25 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateUserDto } from '../../commons/dto/request/update-user.dto';
+import { HttpRequestService } from 'src/app/commons/http/http-request.service';
+import { AppConfigService } from 'src/app/config/config.service';
 
 @Injectable()
 export class UsersService {
-  findAll() {
-    return 'This action returns all users';
+  constructor(
+    private readonly httpRequestService: HttpRequestService,
+    private readonly appConfigService: AppConfigService,
+  ) {}
+  async findByEmail(email: string) {
+    return await this.httpRequestService.request(
+      'GET',
+      `${this.appConfigService.baseUrls.USERS_SERVICE}/users/user/${email}`,
+    );
+  }
+  async findAll() {
+    return await this.httpRequestService.request(
+      'GET',
+      `${this.appConfigService.baseUrls.USERS_SERVICE}/users`,
+    );
   }
 
   findOne(id: number) {

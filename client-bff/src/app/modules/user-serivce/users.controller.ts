@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
+  NotFoundException,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from '../../commons/dto/request/update-user.dto';
@@ -25,7 +27,15 @@ export class UsersController {
     // return this.usersService.findOne(+id);
     return null;
   }
-
+  @Get('/user/:email')
+  findByEmail(@Param('email') email: string): any {
+    const user = this.usersService.findByEmail(email);
+    if(!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+  
   @Patch(':id')
   update(
     @Param('id') id: string,

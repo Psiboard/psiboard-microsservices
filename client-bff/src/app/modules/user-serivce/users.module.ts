@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersController } from './users.controller';
+import { HttpRequestModule } from 'src/app/commons/http/http-request.module';
+import { AppConfigService } from 'src/app/config/config.service';
 
 
 @Module({
-  imports:[],
+  imports: [HttpRequestModule],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [UsersService, AppConfigService],
 })
 export class UsersModule {}
