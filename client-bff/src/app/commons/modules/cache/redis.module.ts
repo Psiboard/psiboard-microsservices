@@ -6,7 +6,7 @@ import { RedisModule } from '@nestjs-modules/ioredis';
     RedisModule.forRoot({
         type: 'single',
         options: {
-            host: 'localhost',
+            host: 'redis', // Nome do serviço no docker-compose.yml
             port: 6379,
         }
     }),
