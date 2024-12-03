@@ -42,7 +42,8 @@ public class AuthenticationController {
         var userData = this.serviceInputPort.findByEmail(data.getEmail());
         var token = tokenServiceInputPort.generateToken((User) auth.getPrincipal());
 
-        return ResponseEntity.ok().body(new LoginResponseDto(userData.getId(), userData.getName(), userData.getEmail(), token));
+        return ResponseEntity.ok().body(new LoginResponseDto(userData.getId(), userData.getName(), userData.getEmail(),
+                userData.getRole(), token));
     }
 
     @PostMapping("/register")
