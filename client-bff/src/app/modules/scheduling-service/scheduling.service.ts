@@ -12,19 +12,19 @@ export class SchedulingServiceService {
   async findSchedules(id: string, date: string) {
     return await this.httpRequestService.request(
       'GET',
-      `${this.appConfigService.baseUrls.USERS_SERVICE}/scheduling/${id}/date?date=${date}`,
+      `${this.appConfigService.baseUrls.PATIENTS_SERVICE}/scheduling/${id}/date?date=${date}`,
     );
   }
   async findAvailabeSchedules(id: string, date: any) {
     return await this.httpRequestService.request(
       'GET',
-      `${this.appConfigService.baseUrls.USERS_SERVICE}/scheduling/${id}/available?date=${date}`,
+      `${this.appConfigService.baseUrls.PATIENTS_SERVICE}/scheduling/${id}/available?date=${date}`,
     );
   }
   async create(schedulingRequestDto: SchedulingRequestDto) {
     return await this.httpRequestService.request(
       'POST',
-      `${this.appConfigService.baseUrls.USERS_SERVICE}/scheduling`,
+      `${this.appConfigService.baseUrls.PATIENTS_SERVICE}/scheduling`,
       schedulingRequestDto,
     );
   }
@@ -40,7 +40,7 @@ export class SchedulingServiceService {
   async update(id: string, schedulingRequestDto: SchedulingRequestDto) {
     return await this.httpRequestService.request(
       'PUT',
-      `${this.appConfigService.baseUrls.USERS_SERVICE}/scheduling/${id}`,
+      `${this.appConfigService.baseUrls.PATIENTS_SERVICE}/scheduling/${id}`,
       schedulingRequestDto,
     );
   }
@@ -48,7 +48,7 @@ export class SchedulingServiceService {
   async remove(id: string) {
     return await this.httpRequestService.request(
       'DELETE',
-      `${this.appConfigService.baseUrls.USERS_SERVICE}/scheduling/${id}`,
+      `${this.appConfigService.baseUrls.PATIENTS_SERVICE}/scheduling/${id}`,
     );
   }
 }
