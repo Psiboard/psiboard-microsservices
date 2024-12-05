@@ -1,6 +1,12 @@
 package com.psiboard.notification_service.config;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -12,12 +18,42 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @EnableRabbit
 public class RabbitMQConfig {
+    
     @Value("${broker.queue.notification.name}")
-    private String queue;
+    private String queueName;
+
+    @Value("${broker.queue.notification.dlq.name}")
+    private String dlqName;
+
+    @Value("${broker.exchange.name}")
+    private String exchangeName;
 
     @Bean
     Queue queue() {
-        return new Queue(queue, true);
+        Map<String, Object> args = new HashMap<>();
+        args.put("x-dead-letter-exchange", exchangeName);
+        args.put("x-dead-letter-routing-key", dlqName);
+        return new Queue(queueName, true, false, false, args);
+    }
+
+    @Bean
+    Queue deadLetterQueue() {
+        return new Queue(dlqName, true);
+    }
+
+    @Bean
+    TopicExchange exchange() {
+        return new TopicExchange(exchangeName);
+    }
+
+    @Bean
+    Binding binding(Queue queue, TopicExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(queueName);
+    }
+
+    @Bean
+    Binding dlqBinding(Queue deadLetterQueue, TopicExchange exchange) {
+        return BindingBuilder.bind(deadLetterQueue).to(exchange).with(dlqName);
     }
 
     @Bean

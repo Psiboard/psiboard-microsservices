@@ -102,6 +102,11 @@
       		<artifactId>spring-rabbit-test</artifactId>
       		<scope>test</scope>
     	</dependency>
+
+		<dependency>
+			<groupId>io.github.resilience4j</groupId>
+			<artifactId>resilience4j-spring-boot2</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
