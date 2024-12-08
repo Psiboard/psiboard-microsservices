@@ -40,9 +40,9 @@ export class UsersController {
   update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
-  ): UserResponseDto {
-    // return this.usersService.update(+id, updateUserDto);
-    return null;
+  ): Promise<UserResponseDto> {
+    console.log('id enviado como paramentro', id);
+    return this.usersService.update(id, updateUserDto);
   }
 
   @Delete(':id')

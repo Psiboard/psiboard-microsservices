@@ -26,8 +26,12 @@ export class UsersService {
     return `This action returns a #${id} user`;
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    return await this.httpRequestService.request(
+      'PUT',
+      `${this.appConfigService.baseUrls.USERS_SERVICE}/users/${id}`,
+      updateUserDto,
+    );
   }
 
   remove(id: number) {
