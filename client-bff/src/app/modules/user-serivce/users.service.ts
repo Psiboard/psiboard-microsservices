@@ -22,8 +22,11 @@ export class UsersService {
     );
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    return await this.httpRequestService.request(
+      'GET',
+      `${this.appConfigService.baseUrls.USERS_SERVICE}/users/${id}`,
+    );
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
@@ -34,7 +37,10 @@ export class UsersService {
     );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    return await this.httpRequestService.request(
+      'DELETE',
+      `${this.appConfigService.baseUrls.USERS_SERVICE}/users/${id}`,
+    );
   }
 }

@@ -23,9 +23,8 @@ export class UsersController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): UserResponseDto {
-    // return this.usersService.findOne(+id);
-    return null;
+  findOne(@Param('id') id: string): Promise<UserResponseDto> {
+    return this.usersService.findOne(id);
   }
   @Get('/user/:email')
   findByEmail(@Param('email') email: string): any {
@@ -47,6 +46,6 @@ export class UsersController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+    return this.usersService.remove(id);
   }
 }
