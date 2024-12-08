@@ -27,7 +27,7 @@ public class TokenService implements TokenServiceInputPort {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
                     .withIssuer("psiboard-api")
-                    .withSubject(user.getEmail())
+                    .withSubject(user.getId())
                     .withExpiresAt(genExpirationDate())
                     .sign(algorithm);
             return token;
