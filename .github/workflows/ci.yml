@@ -1,0 +1,132 @@
+name: CI - Microservices
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  filter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Paths filter
+        id: filter
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            client-bff:
+              - 'client-bff/**'
+            api-gateway:
+              - 'api-gateway/**'
+            users-service:
+              - 'users-service/**'
+            patients-service:
+              - 'patients-service/**'
+            notification-service:
+              - 'notification-service/**'
+
+  # client-bff:
+  #   needs: filter
+  #   if: ${{ needs.filter.outputs['client-bff'] == 'true' }}
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18
+
+  #     - name: Install dependencies and run tests
+  #       run: |
+  #         cd client-bff
+  #         npm install
+  #         npm run lint
+  #         npm run test
+
+  api-gateway:
+    needs: filter
+    if: ${{ needs.filter.outputs['api-gateway'] == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
+
+      - name: Build and test with Maven
+        run: |
+          cd api-gateway
+          mvn clean install
+          mvn test
+
+  users-service:
+    needs: filter
+    if: ${{ needs.filter.outputs['users-service'] == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
+
+      - name: Build and test with Maven
+        run: |
+          cd users-service
+          mvn clean install
+          mvn test
+
+  patients-service:
+    needs: filter
+    if: ${{ needs.filter.outputs['patients-service'] == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
+
+      - name: Build and test with Maven
+        run: |
+          cd patients-service
+          mvn clean install
+          mvn test
+
+  notification-service:
+    needs: filter
+    if: ${{ needs.filter.outputs['notification-service'] == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'temurin'
+
+      - name: Build and test with Maven
+        run: |
+          cd notification-service
+          mvn clean install
+          mvn test
