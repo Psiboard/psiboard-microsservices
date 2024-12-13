@@ -9,28 +9,27 @@ on:
       - main
 
 jobs:
-  filter:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # filter:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: Paths filter
-        id: filter
-        uses: dorny/paths-filter@v2
-        with:
-          filters: |
-            client-bff:
-              - 'client-bff/**'
-            api-gateway:
-              - 'api-gateway/**'
-            users-service:
-              - 'users-service/**'
-            patients-service:
-              - 'patients-service/**'
-            notification-service:
-              - 'notification-service/**'
-
+  #     - name: Paths filter
+  #       id: filter
+  #       uses: dorny/paths-filter@v2
+  #       with:
+  #         filters: |
+  #           client-bff:
+  #             - 'client-bff/**'
+  #           api-gateway:
+  #             - 'api-gateway/**'
+  #           users-service:
+  #             - 'users-service/**'
+  #           patients-service:
+  #             - 'patients-service/**'
+  #           notification-service:
+  #             - 'notification-service/**'
   # client-bff:
   #   needs: filter
   #   if: ${{ needs.filter.outputs['client-bff'] == 'true' }}
