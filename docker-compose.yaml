@@ -48,6 +48,7 @@ services:
     image: prom/prometheus:latest
     container_name: prometheus
     volumes:
+      - prometheus_data:/etc/prometheus
       - ./.monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
@@ -58,9 +59,10 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-      - 3002:3002
+      - 3003:3003
     restart: unless-stopped
     volumes:
+      - grafana_data:/etc/grafana
       - ./.monitoring/grafana/datasources.yml:/etc/grafana/datasources.yml
     environment:
       - GF_SECURITY_ADMIN_USER=admin
@@ -144,3 +146,7 @@ services:
 networks:
   psiboard-network:
     driver: bridge
+
+volumes:
+  prometheus_data:
+  grafana_data:
