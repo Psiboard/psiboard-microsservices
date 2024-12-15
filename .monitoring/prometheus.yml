@@ -1,0 +1,18 @@
+global:
+  scrape_interval: 15s  # Intervalo de coleta de métricas
+
+scrape_configs:
+  - job_name: 'users-service'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['users-service:8081']  # Nome do container e porta
+
+  # - job_name: 'patients-service'
+  #   metrics_path: '/actuator/prometheus'
+  #   static_configs:
+  #     - targets: ['patients-service:8082']
+
+  # - job_name: 'notification-service'
+  #   metrics_path: '/actuator/prometheus'
+  #   static_configs:
+  #     - targets: ['notification-service:8083']

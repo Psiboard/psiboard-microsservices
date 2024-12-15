@@ -40,9 +40,33 @@ services:
     image: redis
     container_name: psiboard-redis
     ports:
-      - "6379:6379"
+      - 6379:6379
     networks:
       - psiboard-network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./.monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - psiboard-network
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - 3002:3002
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Usuário/senha padrão
+    networks:
+      - psiboard-network
+    depends_on:
+      - prometheus
+
 
   users-service:
     build: 
