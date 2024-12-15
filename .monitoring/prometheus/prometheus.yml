@@ -2,10 +2,15 @@ global:
   scrape_interval: 15s  # Intervalo de coleta de métricas
 
 scrape_configs:
+
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:9090']
+
   - job_name: 'users-service'
     metrics_path: '/actuator/prometheus'
     static_configs:
-      - targets: ['users-service:8081']  # Nome do container e porta
+      - targets: ['host.docker.internal:8081']
 
   # - job_name: 'patients-service'
   #   metrics_path: '/actuator/prometheus'
